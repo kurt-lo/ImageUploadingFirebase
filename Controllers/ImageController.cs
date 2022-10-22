@@ -23,7 +23,7 @@ namespace ImageUploadingFirebase.Controllers
         {
             _webHostEnvironment = webHostEnvironment;
         }
-
+        
         public IActionResult Index()
         {
             //this is the image class in the models
@@ -33,7 +33,11 @@ namespace ImageUploadingFirebase.Controllers
             FileInfo[] fileinfo = di.GetFiles();
             img.FileImage = fileinfo;
             return View(img);
-        } 
+        }
+        public IActionResult Add()
+        {
+            return View();
+        }
 
         [HttpPost]
         public async Task<IActionResult> Index(IFormFile file)
@@ -49,5 +53,7 @@ namespace ImageUploadingFirebase.Controllers
 
             return RedirectToAction("Index");
         }
+
+
     }
 }
