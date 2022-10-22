@@ -1,0 +1,26 @@
+﻿@model ImageUploadingFirebase.Models.Image
+
+@{
+    ViewData["Title"] = "Image Upload";
+}
+
+<h1>Image Uploading</h1>
+<form method="post" enctype="multipart/form-data" asp-controller="Image" asp-action="Index">
+    <input type="file" name="file" />
+    <input type="submit" value="Upload Image" />
+    </table>
+    <hr/>
+    <table class="table">
+        <tr>
+            <th>Image Name</th>
+            <th>Image</th>
+        </tr>
+        @foreach (var item in Model.FileImage)
+        {
+            <tr>
+                <td>@item.Name</td>
+                <td><img src="./NewFolder/@item.Name" height="80" width="120"/></td>
+            </tr>
+        }
+    </table>
+</form>
