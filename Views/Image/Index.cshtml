@@ -1,0 +1,29 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@model ImageUploadingFirebase.Models.Image
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Image Uploading</h1>
+<form method="post" enctype="multipart/form-data" asp-controller="Image" asp-action="Index">
+    <input type="file" name="file" />
+    <input type="submit" value="Upload Image" />
+    <hr/>
+    <table class="table">
+        <tr>
+            <th>Image Name </th>
+            <th>Image</th>
+        </tr>
+        @foreach (var item in Model.FileImage)
+        {
+            <td>
+                @item.Name
+            </td>
+            <td>
+                <img src="~/NewFolder/@item.Name" height="80" widwidth="120"/>
+            </td>
+        }
+    </table>
+</form>
