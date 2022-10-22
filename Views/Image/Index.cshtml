@@ -14,10 +14,15 @@
     <hr/>
     <table class="table">
         <tr>
+            <th>Image Name</th>
             <th>Image</th>
         </tr>
         @foreach (var item in Model.FileImage)
         {
+            <tr>
+                <td>@item.Name</td>
+                <td><img src="./NewFolder/@item.Name" width="120" height="80" /></td>
+            </tr>
         }
     </table>
 </form>
