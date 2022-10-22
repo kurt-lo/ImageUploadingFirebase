@@ -5,6 +5,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Hosting;
 using FireSharp.Interfaces;
 using FireSharp.Config;
+using Firebase.Storage;
+using FireSharp.Response;
 
 namespace ImageUploadingFirebase.Controllers
 {
@@ -40,20 +42,25 @@ namespace ImageUploadingFirebase.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Index(IFormFile file)
+        public async Task<IActionResult> Index(IFormFile file, Image image)
         {
+            //pagsave ng image sa folder
             var imgsave = Path.Combine(_webHostEnvironment.WebRootPath, "NewFolder", file.FileName);
             var stream = new FileStream(imgsave, FileMode.Create);
             await file.CopyToAsync(stream);
+
+            //pagstore sa firebase
+            client = new FireSharp.FirebaseClient(config);
+            var data = image;
+            PushResponse response = client.Push("Images/", file.FileName);
+            data.Id = response.Result.name;
+
             stream.Close();
-           // using (Stream fileStream = new FileStream(path, FileMode.Create))
-           // {
+            // using (Stream fileStream = new FileStream(path, FileMode.Create))
+            // {
             //    await file.CopyToAsync(fileStream);
             //}
-
             return RedirectToAction("Index");
         }
-
-
     }
 }
